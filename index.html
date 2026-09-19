@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IGNITE Leadership Club – Preparing Students for Life, Leadership, and Purpose</title>
+    <meta name="description" content="IGNITE Leadership Club is a school-based youth development system for secondary school students in Northwest Nigeria.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Colors */
+            --color-primary: #d97706; /* Warm amber/gold orange */
+            --color-primary-light: #f59e0b;
+            --color-secondary: #0f172a; /* Dark slate/deep charcoal */
+            --color-secondary-light: #1e293b;
+            --color-background: #f8fafc; /* Clean off-white */
+            --color-surface: #ffffff; /* Clean white */
+            --color-text: #334155; /* Cool gray for body */
+            --color-text-muted: #64748b;
+            --color-accent: #0f766e; /* Teal/ocean blue */
+            
+            /* Typography */
+            --font-heading: 'Outfit', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--color-background);
+            color: var(--color-text);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-heading);
+            color: var(--color-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--color-primary);
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--color-primary-light);
+        }
+
+        /* Navigation */
+        header {
+            background-color: var(--color-secondary);
+            padding: 1rem 5%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: var(--color-surface);
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 800;
+            cursor: pointer;
+        }
+        
+        .logo span {
+            color: var(--color-primary);
+        }
+
+        nav {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--color-surface);
+            font-weight: 500;
+            font-size: 0.95rem;
+            cursor: pointer;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--color-primary);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+            font-family: var(--font-heading);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: var(--color-primary);
+            color: var(--color-surface) !important;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--color-primary-light);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--color-surface) !important;
+            border: 2px solid var(--color-surface);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-dark {
+            background-color: var(--color-secondary);
+            color: var(--color-surface) !important;
+        }
+
+        .btn-dark:hover {
+            background-color: var(--color-secondary-light);
+        }
+
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            color: var(--color-surface);
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 5%;
+        }
+
+        /* Single Page Application Logic */
+        .page-section {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Sections */
+        .hero {
+            background: linear-gradient(135deg, var(--color-secondary), var(--color-secondary-light));
+            color: var(--color-surface);
+            padding: 6rem 5%;
+            text-align: center;
+        }
+
+        .hero h1 {
+            color: var(--color-surface);
+            font-size: 3rem;
+            max-width: 800px;
+            margin: 0 auto 1.5rem auto;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin: 0 auto 2rem auto;
+            color: #cbd5e1;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background-color: var(--color-primary);
+            margin: 1rem auto 0;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background-color: var(--color-surface);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            color: var(--color-accent);
+            margin-bottom: 1rem;
+        }
+
+        /* Forms */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--color-secondary);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
+        }
+
+        .bg-light { background-color: var(--color-background); }
+        .bg-white { background-color: var(--color-surface); }
+        .bg-dark { background-color: var(--color-secondary); color: white; }
+        .bg-dark h2, .bg-dark h3 { color: white; }
+
+        .text-center { text-align: center; }
+        
+        .cta-section {
+            padding: 5rem 5%;
+            text-align: center;
+            background-color: var(--color-accent);
+            color: white;
+        }
+        .cta-section h2 { color: white; }
+
+        /* Footer */
+        footer {
+            background-color: var(--color-secondary);
+            color: var(--color-surface);
+            padding: 3rem 5% 1.5rem;
+            text-align: center;
+        }
+
+        footer p { color: var(--color-text-muted); }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .menu-toggle {
+                display: block;
+            }
+            
+            nav {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--color-secondary);
+                padding: 1rem 5%;
+                gap: 1rem;
+            }
+            
+            nav.active {
+                display: flex;
+            }
+            
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo" onclick="navigateTo('home')">IGNITE<span>.</span></div>
+        <button class="menu-toggle" id="menuToggle">☰</button>
+        <nav id="mainNav">
+            <a onclick="navigateTo('home')" class="nav-link">Home</a>
+            <a onclick="navigateTo('about')" class="nav-link">About</a>
+            <a onclick="navigateTo('programme')" class="nav-link">Programme</a>
+            <a onclick="navigateTo('career')" class="nav-link">Career Guidance</a>
+            <a onclick="navigateTo('gallery')" class="nav-link">Gallery</a>
+            <a onclick="navigateTo('schools')" class="nav-link">Schools</a>
+            <a onclick="navigateTo('sponsors')" class="nav-link">Sponsors</a>
+            <a onclick="navigateTo('impact')" class="nav-link">Pilot & Impact</a>
+            <a onclick="navigateTo('contact')" class="nav-link">Contact</a>
+            <a onclick="navigateTo('register')" class="btn btn-primary" style="padding: 0.5rem 1rem;">Register Student</a>
+        </nav>
+    </header>
+
+    <!-- HOME PAGE -->
+    <main id="home" class="page-section active">
+        <section class="hero">
+            <h1>Preparing Students for Life, Leadership, and Purpose</h1>
+            <p>IGNITE Leadership Club is a school-based youth development and orientation system helping secondary school students build discipline, leadership skills, career clarity, civic responsibility, and community impact.</p>
+            <div class="hero-buttons">
+                <a onclick="navigateTo('sponsors')" class="btn btn-primary">Partner With IGNITE</a>
+                <a onclick="navigateTo('schools')" class="btn btn-secondary">Register a School</a>
+            </div>
+        </section>
+
+        <section class="container bg-white">
+            <div class="grid-2">
+                <div>
+                    <h2>Many Students Are Prepared for Exams, But Not for Life</h2>
+                    <p>Across many schools, students receive academic instruction but limited structured guidance on personal growth, career direction, social responsibility, leadership, and responsible citizenship. Many young people move through school without structured guidance. IGNITE exists to close that gap through a continuous school-based system.</p>
+                </div>
+                <div>
+                    <h2>IGNITE Builds a System, Not a Seminar</h2>
+                    <p>Through school clubs, trained facilitators, teacher/counsellor support, liaison officers, mentorship, SDG orientation, and monitoring, IGNITE provides continuous guidance that can produce lasting student growth. It is a sustainable youth development system inside schools.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="container bg-light">
+            <h2 class="section-title">Four Pillars of Impact</h2>
+            <div class="grid-3">
+                <div class="card text-center">
+                    <div class="card-icon">⚡</div>
+                    <h3>Improved Behaviour</h3>
+                    <p>Fostering discipline, core values, and personal responsibility in students.</p>
+                </div>
+                <div class="card text-center">
+                    <div class="card-icon">🗣️</div>
+                    <h3>Leadership Skills</h3>
+                    <p>Building confidence, teamwork, and the ability to lead oneself and others.</p>
+                </div>
+                <div class="card text-center">
+                    <div class="card-icon">🎯</div>
+                    <h3>Career Clarity</h3>
+                    <p>Guiding students to choose paths based on strengths, interests, and potential.</p>
+                </div>
+                <div class="card text-center">
+                    <div class="card-icon">🌍</div>
+                    <h3>Community Service</h3>
+                    <p>Instilling civic responsibility and a commitment to solving local problems.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="container bg-white">
+            <div class="grid-2">
+                <div>
+                    <h2>Starting With a One-Term Pilot</h2>
+                    <p>The first pilot will run in two secondary schools, engaging 60 students from JSS3 to SS3. The pilot will provide training, mentorship, career pathway guidance, SDG orientation, and student project preparation.</p>
+                    <a onclick="navigateTo('impact')" class="btn btn-dark" style="margin-top: 1rem;">View Pilot Details</a>
+                </div>
+                <div>
+                    <h2>Help Build a Generation That Can Lead and Serve</h2>
+                    <p>IGNITE is seeking support from government, CSR partners, NGOs, development organizations, philanthropists, and companies committed to youth development in Northwest Nigeria.</p>
+                    <a onclick="navigateTo('sponsors')" class="btn btn-primary" style="margin-top: 1rem;">See Sponsorship Opportunities</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <h2 style="margin-bottom: 1.5rem;">Join Us in Building the Next Generation of Responsible Leaders</h2>
+            <p style="margin-bottom: 2rem; font-size: 1.2rem;">Partner with IGNITE, register a school, or support the pilot across Northwest Nigeria.</p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a onclick="navigateTo('schools')" class="btn btn-primary" style="background-color: white; color: var(--color-accent) !important;">Register a School</a>
+                <a onclick="navigateTo('contact')" class="btn btn-secondary">Contact the Team</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- ABOUT PAGE -->
+    <main id="about" class="page-section">
+        <section class="container bg-white">
+            <h1 class="section-title">About IGNITE</h1>
+            <div style="max-width: 800px; margin: 0 auto;">
+                <div class="card" style="margin-bottom: 2rem;">
+                    <h3>Why IGNITE Was Created</h3>
+                    <p>Every year, thousands of students pass their exams but step into adulthood without direction. IGNITE was created to close that gap — bringing structured leadership training, mentorship, and career guidance directly into the school system, so growth does not stop at the classroom door.</p>
+                </div>
+                
+                <div class="card" style="margin-bottom: 2rem;">
+                    <h3>The Problem We Are Solving</h3>
+                    <p>Across many Nigerian secondary schools, students receive strong academic instruction but very little structured support for character, leadership, and career decision-making. Left unaddressed, this gap produces graduates who are qualified on paper but unprepared for real responsibility.</p>
+                </div>
+                
+                <div class="grid-2" style="margin-bottom: 2rem;">
+                    <div class="card bg-dark">
+                        <h3>Our Vision</h3>
+                        <p>A generation of young Nigerians who lead with discipline, purpose, and integrity — equipped to shape their communities and contribute meaningfully to national development.</p>
+                    </div>
+                    <div class="card bg-dark">
+                        <h3>Our Mission</h3>
+                        <p>To build a sustainable, school-based system that guides students through leadership training, mentorship, and career orientation, turning potential into practical, lifelong readiness.</p>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-bottom: 2rem;">
+                    <h3>What IGNITE Means</h3>
+                    <p>IGNITE reflects exactly what the programme sets out to do: spark the discipline, confidence, and sense of purpose that students carry with them long after they leave the classroom.</p>
+                </div>
+
+                <div class="grid-2">
+                    <div>
+                        <h3>Why Schools Matter</h3>
+                        <p>Schools are where habits, character, and direction are formed. Working inside the school system allows IGNITE to reach students consistently, over time, rather than through a single event that fades quickly.</p>
+                    </div>
+                    <div>
+                        <h3>Why Sustainability Matters</h3>
+                        <p>Real change in a young person takes more than one session — it takes a system. IGNITE is built to continue term after term, so schools, sponsors, and government partners can measure lasting impact, not just short-term activity.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- PROGRAMME PAGE -->
+    <main id="programme" class="page-section">
+        <section class="container bg-light">
+            <h1 class="section-title">The Programme</h1>
+            
+            <div class="grid-2" style="margin-bottom: 3rem;">
+                <div>
+                    <h3>Programme Overview</h3>
+                    <p>IGNITE runs as a structured, in-school programme that combines regular training sessions, mentorship, and practical projects to build student leadership, discipline, and career clarity over a full term.</p>
+                </div>
+                <div>
+                    <h3>Who the Programme Is For</h3>
+                    <p>The pilot is designed for secondary school students from JSS3 to SS3 — the stage where career decisions and leadership habits begin to take shape.</p>
+                </div>
+            </div>
+
+            <h3 class="text-center" style="margin-bottom: 2rem;">Programme Modules</h3>
+            <div class="grid-3" style="margin-bottom: 4rem;">
+                <div class="card">
+                    <h4>1. Self-Leadership & Discipline</h4>
+                </div>
+                <div class="card">
+                    <h4>2. Values & Responsibility</h4>
+                </div>
+                <div class="card">
+                    <h4>3. Communication & Confidence</h4>
+                </div>
+                <div class="card">
+                    <h4>4. Leadership & Teamwork</h4>
+                </div>
+                <div class="card">
+                    <h4>5. SDG & Civic Responsibility</h4>
+                </div>
+                <div class="card">
+                    <h4>6. Career Pathway Guidance</h4>
+                </div>
+                <div class="card">
+                    <h4>7. Community Service Planning</h4>
+                </div>
+                <div class="card">
+                    <h4>8. Reflection & Reporting</h4>
+                </div>
+            </div>
+
+            <div class="card bg-white" style="max-width: 800px; margin: 0 auto;">
+                <h3 class="text-center">How It Works (Delivery Model)</h3>
+                <ul style="list-style: none; padding-left: 0; margin-top: 1.5rem;">
+                    <li style="margin-bottom: 1rem;"><strong>Weekly Training:</strong> In-school sessions led by trained facilitators focusing on specific growth areas.</li>
+                    <li style="margin-bottom: 1rem;"><strong>Teachers & Counsellors:</strong> Support the programme inside the school, reinforcing learning between sessions.</li>
+                    <li style="margin-bottom: 1rem;"><strong>School Liaison Officers:</strong> Coordinate scheduling, attendance, and communication with the school.</li>
+                    <li style="margin-bottom: 1rem;"><strong>NYSC SDGs CDS Group:</strong> Support facilitation and connect the programme to national SDG advocacy.</li>
+                    <li style="margin-bottom: 1rem;"><strong>Guest Speakers & Mentors:</strong> Provide real-world exposure across different career paths.</li>
+                    <li><strong>Monitoring & Evaluation:</strong> Progress tracked via attendance, participation, and assessments to produce impact reports.</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <!-- CAREER GUIDANCE PAGE -->
+    <main id="career" class="page-section">
+        <section class="container bg-white">
+            <div class="text-center" style="margin-bottom: 3rem;">
+                <h1 style="font-size: 2.5rem; color: var(--color-secondary);">Helping Students Choose Careers That Fit Their Strengths and Future</h1>
+                <p style="font-size: 1.2rem; max-width: 800px; margin: 1rem auto 0; color: var(--color-text-muted);">
+                    Many students choose career paths because of pressure, trend, parental expectation, peer influence, or lack of exposure. IGNITE helps students understand themselves, explore career options, and make better decisions about their future.
+                </p>
+            </div>
+
+            <div class="grid-3" style="margin-bottom: 4rem;">
+                <div class="card">
+                    <h3>Self-Discovery</h3>
+                    <p>Understanding personal values, interests, and innate abilities.</p>
+                </div>
+                <div class="card">
+                    <h3>Skills & Strengths</h3>
+                    <p>Identifying what students are naturally good at and areas for growth.</p>
+                </div>
+                <div class="card">
+                    <h3>Subject Connection</h3>
+                    <p>Linking academic subjects to real-world career opportunities.</p>
+                </div>
+                <div class="card">
+                    <h3>Career Exposure</h3>
+                    <p>Introducing students to traditional, vocational, technical, and entrepreneurial pathways.</p>
+                </div>
+                <div class="card">
+                    <h3>Mentorship</h3>
+                    <p>Connecting students with professionals for guidance and role modeling.</p>
+                </div>
+                <div class="card bg-dark">
+                    <h3>The Student Career Profile</h3>
+                    <p style="color: #cbd5e1; font-size: 0.9rem;">At the end of the pilot, each student receives a profile mapping their strengths, suggested paths, and next steps.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- GALLERY PAGE -->
+    <main id="gallery" class="page-section">
+        <section class="container bg-light text-center">
+            <h1 class="section-title">Gallery</h1>
+            <p style="font-size: 1.2rem; margin-bottom: 3rem;">Documenting the journey of the IGNITE Pilot Programme.</p>
+            
+            <div style="padding: 4rem; background-color: var(--color-surface); border-radius: 8px; border: 1px dashed var(--color-text-muted);">
+                <h2 style="color: var(--color-text-muted);">Pilot in Progress: Images Coming Soon</h2>
+                <p>Check back as we document school visits, orientation activities, training sessions, and student presentations.</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- SCHOOLS PAGE -->
+    <main id="schools" class="page-section">
+        <section class="container bg-white">
+            <h1 class="section-title">Bring IGNITE to Your School</h1>
+            
+            <div class="grid-2" style="margin-bottom: 4rem;">
+                <div>
+                    <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">Schools do not pay to participate in the pilot. Schools serve as implementation partners by providing student access, a teacher or counsellor representative, time for programme sessions, venue support, and cooperation with the IGNITE team.</p>
+                    
+                    <div class="card" style="margin-bottom: 1.5rem;">
+                        <h3>What Schools Provide</h3>
+                        <ul>
+                            <li>Approval from school leadership</li>
+                            <li>30 selected students</li>
+                            <li>Teacher or counsellor representative</li>
+                            <li>Space for sessions</li>
+                            <li>Support for attendance and monitoring</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card bg-dark">
+                        <h3>What IGNITE Provides</h3>
+                        <ul style="color: #cbd5e1;">
+                            <li>Programme structure & materials</li>
+                            <li>Facilitator coordination</li>
+                            <li>Career pathway guidance & SDG orientation</li>
+                            <li>Monitoring tools & Reporting</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 style="margin-bottom: 1.5rem;">School Registration Request</h3>
+                    <form onsubmit="event.preventDefault(); alert('Registration submitted successfully! We will contact you soon.');">
+                        <div class="form-group">
+                            <label>School Name</label>
+                            <input type="text" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Principal/Contact Person Name</label>
+                            <input type="text" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="tel" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Local Government Area</label>
+                            <input type="text" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Estimated Students (JSS3 to SS3)</label>
+                            <input type="number" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Request</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- SPONSORS PAGE -->
+    <main id="sponsors" class="page-section">
+        <section class="container bg-light">
+            <h1 class="section-title">Sponsor a School-Based Youth Development System</h1>
+            <p class="text-center" style="font-size: 1.2rem; max-width: 800px; margin: 0 auto 3rem;">
+                IGNITE gives government, CSR partners, NGOs, development organizations, and philanthropists a measurable way to invest in youth development, education, leadership, civic responsibility, and community impact.
+            </p>
+
+            <div class="grid-3" style="margin-bottom: 4rem;">
+                <div class="card text-center" style="border-top: 4px solid var(--color-primary);">
+                    <h3>Lead Pilot Sponsor</h3>
+                    <h2 style="color: var(--color-primary);">₦4,750,000</h2>
+                    <p>Fund the complete pilot program across multiple schools.</p>
+                </div>
+                <div class="card text-center" style="border-top: 4px solid var(--color-secondary);">
+                    <h3>School Sponsor</h3>
+                    <h2 style="color: var(--color-secondary);">₦2,375,000</h2>
+                    <p>Adopt and fully fund the programme in one secondary school.</p>
+                </div>
+                <div class="card text-center" style="border-top: 4px solid var(--color-accent);">
+                    <h3>Materials Sponsor</h3>
+                    <h2 style="color: var(--color-accent);">₦900,000</h2>
+                    <p>Provide student workbooks, certificates, and training tools.</p>
+                </div>
+            </div>
+            
+            <div class="card" style="max-width: 600px; margin: 0 auto;">
+                <h3 class="text-center" style="margin-bottom: 1.5rem;">Sponsorship Inquiry</h3>
+                <form onsubmit="event.preventDefault(); alert('Inquiry sent! Thank you for your interest in supporting IGNITE.');">
+                    <div class="form-group">
+                        <label>Organization / Sponsor Name</label>
+                        <input type="text" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Contact Person & Role</label>
+                        <input type="text" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Area of Interest</label>
+                        <select class="form-control" required>
+                            <option value="">Select an option</option>
+                            <option value="Lead Pilot">Lead Pilot Sponsor</option>
+                            <option value="School Sponsor">School Sponsor</option>
+                            <option value="Materials">Training Materials</option>
+                            <option value="Logistics">Logistics (₦750,000)</option>
+                            <option value="Impact">Monitoring & Impact (₦350,000)</option>
+                            <option value="Other">Other form of support</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-dark" style="width: 100%;">Contact Us About Sponsorship</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- PILOT & IMPACT PAGE -->
+    <main id="impact" class="page-section">
+        <section class="container bg-white">
+            <h1 class="section-title">Pilot & Impact</h1>
+            
+            <div class="grid-2" style="margin-bottom: 3rem;">
+                <div class="card bg-dark">
+                    <h3 style="color: var(--color-primary);">Pilot Overview</h3>
+                    <p>The first pilot runs for one school term across two secondary schools, engaging 60 students from JSS3 to SS3. It measures improved student behaviour, leadership skills, career clarity, and community service preparation.</p>
+                    <div style="display: flex; gap: 2rem; margin-top: 1.5rem;">
+                        <div>
+                            <span style="display: block; font-size: 2rem; font-weight: bold; color: white;">2</span>
+                            <span style="color: var(--color-text-muted);">Schools</span>
+                        </div>
+                        <div>
+                            <span style="display: block; font-size: 2rem; font-weight: bold; color: white;">60</span>
+                            <span style="color: var(--color-text-muted);">Students</span>
+                        </div>
+                        <div>
+                            <span style="display: block; font-size: 2rem; font-weight: bold; color: white;">1</span>
+                            <span style="color: var(--color-text-muted);">School Term</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3>What We Track (Metrics)</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="padding: 0.5rem 0; border-bottom: 1px solid #e2e8f0;">✓ Attendance & Participation</li>
+                        <li style="padding: 0.5rem 0; border-bottom: 1px solid #e2e8f0;">✓ Behaviour improvement (Teacher feedback)</li>
+                        <li style="padding: 0.5rem 0; border-bottom: 1px solid #e2e8f0;">✓ Leadership confidence & Student reflections</li>
+                        <li style="padding: 0.5rem 0; border-bottom: 1px solid #e2e8f0;">✓ Career clarity (Pre and Post assessments)</li>
+                        <li style="padding: 0.5rem 0;">✓ Community service project ideas</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- CONTACT PAGE -->
+    <main id="contact" class="page-section">
+        <section class="container bg-light">
+            <h1 class="section-title">Get in Touch</h1>
+            
+            <div class="grid-2">
+                <div>
+                    <h3 style="margin-bottom: 1rem;">Contact Information</h3>
+                    <p style="margin-bottom: 0.5rem;"><strong>Location:</strong> Northwest Nigeria</p>
+                    <p style="margin-bottom: 0.5rem;"><strong>Email:</strong> info@igniteleadership.org (Placeholder)</p>
+                    <p style="margin-bottom: 2rem;"><strong>Phone:</strong> +234 XXX XXX XXXX (Placeholder)</p>
+                    
+                    <p style="color: var(--color-text-muted);">IGNITE is ready to partner with schools, government agencies, and sponsors dedicated to youth development.</p>
+                </div>
+                
+                <div class="card">
+                    <form onsubmit="event.preventDefault(); alert('Message sent successfully!');">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Inquiry Type</label>
+                            <select class="form-control" required>
+                                <option value="School">School inquiry</option>
+                                <option value="Sponsor">Sponsorship inquiry</option>
+                                <option value="Government">Government partnership</option>
+                                <option value="NGO">NGO partnership</option>
+                                <option value="Volunteer">Volunteer or mentor inquiry</option>
+                                <option value="General">General message</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Message</label>
+                            <textarea class="form-control" rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- STUDENT REGISTRATION PAGE -->
+    <main id="register" class="page-section">
+        <section class="container bg-white">
+            <h1 class="section-title">Student Registration</h1>
+            
+            <div class="card" style="max-width: 600px; margin: 0 auto; background-color: var(--color-background);">
+                <div style="background-color: var(--color-secondary); color: white; padding: 1rem; border-radius: 4px; margin-bottom: 2rem; font-size: 0.9rem;">
+                    <strong>Privacy Notice:</strong> Student information is handled securely and will only be used for programme participation, monitoring, mentorship, and reporting.
+                </div>
+                
+                <form onsubmit="event.preventDefault(); alert('Student registered successfully!');">
+                    <div class="form-group">
+                        <label>Student Full Name</label>
+                        <input type="text" class="form-control" required>
+                    </div>
+                    <div class="grid-2" style="gap: 1rem; margin-bottom: 0;">
+                        <div class="form-group">
+                            <label>Age</label>
+                            <input type="number" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Gender</label>
+                            <select class="form-control" required>
+                                <option value="">Select...</option>
+                                <option value="M">Male</option>
+                                <option value="F">Female</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="grid-2" style="gap: 1rem; margin-bottom: 0;">
+                        <div class="form-group">
+                            <label>School Name</label>
+                            <input type="text" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Class (JSS3 - SS3)</label>
+                            <input type="text" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Parent/Guardian Phone Number</label>
+                        <input type="tel" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" required style="margin-right: 0.5rem;"> 
+                            I confirm I have parent/guardian consent to participate.
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Register for Pilot</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="logo" style="margin-bottom: 1rem;">IGNITE<span>.</span></div>
+        <p style="margin-bottom: 0.5rem;">A school-based youth development system.</p>
+        <p>&copy; 2026 IGNITE Leadership Club. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Simple Single Page Application Router
+        function navigateTo(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show target page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Update active nav link
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Add active class to clicked link (if it exists)
+            const activeLink = document.querySelector(`.nav-link[onclick="navigateTo('${pageId}')"]`);
+            if (activeLink) activeLink.classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+            
+            // Close mobile menu if open
+            const nav = document.getElementById('mainNav');
+            if (nav.classList.contains('active')) {
+                nav.classList.remove('active');
+            }
+        }
+        
+        // Mobile Menu Toggle
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            document.getElementById('mainNav').classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
